@@ -2,6 +2,7 @@ package util
 
 import (
 	"net"
+	"time"
 )
 
 func GetLocalIp() string {
@@ -16,4 +17,8 @@ func GetLocalIp() string {
 		}
 	}
 	return ""
+}
+
+func GetCurrentTimestamp() int64 {
+	return int64(float64(time.Now().UnixNano()) / 1e6)
 }

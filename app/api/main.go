@@ -1,10 +1,9 @@
 package main
 
 import (
-	"axe-backend/aivideo"
 	"axe-backend/config"
 	db "axe-backend/store"
-	"axe-backend/user"
+	userRouter "axe-backend/app/route/user"
 	"axe-backend/util"
 	"context"
 	"flag"
@@ -143,8 +142,7 @@ func setupRouter() *gin.Engine {
 		c.String(http.StatusOK, time.Now().String())
 	})
 
-	aivideo.SetupRouter(r.Group("/aivideo"))
-	user.SetupRouter(r.Group("/user"))
+	userRouter.SetupRouter(r)
 
 	return r
 }
