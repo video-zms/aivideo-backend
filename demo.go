@@ -1,9 +1,9 @@
 package main
 
 import (
+	"axe-backend/service/ratelimiter"
 	"fmt"
 	"time"
-	"axe-backend/ratelimiter"
 )
 
 func main() {

@@ -1,9 +1,14 @@
 package main
 
 import (
+	assetRouter "axe-backend/app/route/asset"
+	chapterRouter "axe-backend/app/route/chapter"
+	projectRouter "axe-backend/app/route/project"
+	shotRouter "axe-backend/app/route/shot"
+	userRouter "axe-backend/app/route/user"
+
 	"axe-backend/config"
 	db "axe-backend/store"
-	userRouter "axe-backend/app/route/user"
 	"axe-backend/util"
 	"context"
 	"flag"
@@ -143,6 +148,9 @@ func setupRouter() *gin.Engine {
 	})
 
 	userRouter.SetupRouter(r)
-
+	projectRouter.SetupRouter(r)
+	shotRouter.SetupRouter(r)
+	chapterRouter.SetupRouter(r)
+	assetRouter.SetupRouter(r)
 	return r
 }

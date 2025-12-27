@@ -1,7 +1,7 @@
-package charpter
+package chapter
 
 import (
-	"aivideo-backend/store" // Adjust the import path if your store package is elsewhere
+	"axe-backend/store" 
 	"axe-backend/util"
 
 	"github.com/gin-gonic/gin"
@@ -40,10 +40,10 @@ func UpdateChapter(c *gin.Context) {
 		return
 	}
 	if req.Title != "" {
-		chapter.Title = req.Title
+		chapter.StoryTitle = req.Title
 	}
 	if req.Content != "" {
-		chapter.Content = req.Content
+		chapter.Story = req.Content
 	}
 	if req.ProjectID != 0 {
 		chapter.ProjectID = req.ProjectID
@@ -92,10 +92,9 @@ func CreateChapter(c *gin.Context) {
 		return
 	}
 	chapter := &store.Chapter{
-		Title:     req.Title,
-		Content:   req.Story,
+		StoryTitle: req.Title,
+		Story:   req.Story,
 		ProjectID: req.ProjectID,
-		StoryTitle: req.StoryTitle,
 		StoryScene: req.StoryScene,
 		StoryShots: req.StoryShots,
 		Extea:     req.Extea,

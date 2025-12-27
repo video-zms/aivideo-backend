@@ -2,6 +2,7 @@ package store
 
 import (
 	"axe-backend/util"
+	"database/sql"
 	"strings"
 )
 
@@ -75,6 +76,9 @@ func ListProjectsByCreator(creator string) ([]*Project, error) {
 	projects := []*Project{}
 	err := MainDB.Select(&projects, "SELECT * FROM "+(&Project{}).TableName()+" WHERE creator = ?", creator)
 	if err != nil {
+		if err == sql.ErrNoRows {
+			return projects, nil
+		}
 		return nil, err
 	}
 	return projects, nil
@@ -85,6 +89,9 @@ func ListAllProjects() ([]*Project, error) {
 	projects := []*Project{}
 	err := MainDB.Select(&projects, "SELECT * FROM "+(&Project{}).TableName())
 	if err != nil {
+		if err == sql.ErrNoRows {
+			return projects, nil
+		}
 		return nil, err
 	}
 	return projects, nil

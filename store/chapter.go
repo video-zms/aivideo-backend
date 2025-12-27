@@ -2,7 +2,10 @@ package store
 
 import (
 	"axe-backend/util"
+	"database/sql"
 	"strings"
+
+	"github.com/jmoiron/sqlx"
 )
 
 // CREATE TABLE story (
@@ -37,6 +40,9 @@ func GetChapterInfo(cid int64) (*Chapter, error) {
 	chapter := &Chapter{}
 	err := MainDB.Get(chapter, "SELECT * FROM "+chapter.TableName()+" WHERE id = ?", cid)
 	if err != nil {
+		if err!=sql.ErrNoRows {
+			return nil, err
+		}
 		return nil, err
 	}
 	return chapter, nil
@@ -81,6 +87,49 @@ func ListChaptersByProject(projectID int64) ([]*Chapter, error) {
 	chapters := []*Chapter{}
 	err := MainDB.Select(&chapters, "SELECT * FROM "+(&Chapter{}).TableName()+" WHERE project_id = ?", projectID)
 	if err != nil {
+		if err == sql.ErrNoRows {
+			return chapters, nil
+		}
+		return nil, err
+	}
+	return chapters, nil
+}
+
+func ListChaptersByProjectIDs(projectIDs []int64) ([]*Chapter, error) {
+	chapters := []*Chapter{}
+	query, args, err := sqlx.In("SELECT * FROM "+(&Chapter{}).TableName()+" WHERE project_id IN (?)", projectIDs)
+	if err != nil {
+		return nil, err
+	}
+	err = MainDB.Select(&chapters, query, args...)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return chapters, nil
+		}
+		return nil, err
+	}
+	return chapters, nil
+}
+
+func GetChapterByID(cid int64) (*Chapter, error) {
+	chapter := &Chapter{}
+	err := MainDB.Get(chapter, "SELECT * FROM "+chapter.TableName()+" WHERE id = ?", cid)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return chapter, nil
+}
+
+func ListChaptersByProjectID(projectID int64) ([]*Chapter, error) {
+	chapters := []*Chapter{}
+	err := MainDB.Select(&chapters, "SELECT * FROM "+(&Chapter{}).TableName()+" WHERE project_id = ?", projectID)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return chapters, nil
+		}
 		return nil, err
 	}
 	return chapters, nil

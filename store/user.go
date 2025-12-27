@@ -1,7 +1,6 @@
 package store
 
 import (
-	"axe-backend/db"
 	"database/sql"
 	"strings"
 
@@ -56,7 +55,7 @@ func (cr *User) Update() error {
 		setParts[i] = field + "=" + values[i]
 	}
 	query := sql + strings.Join(setParts, ",") + " WHERE id = :id"
-	_, err := db.MainDB.Unsafe().NamedExec(query, cr)
+	_, err := MainDB.Unsafe().NamedExec(query, cr)
 	if err != nil {
 		logrus.WithFields(logrus.Fields{"collect_record": cr, "uid": cr.ID, "err": err}).Error("update collect record error")
 	}
