@@ -21,26 +21,26 @@ import (
 // );
 
 type Chapter struct {
-	ID        int64  `db:"id" json:"id"`
-	ProjectID int64  `db:"project_id" json:"project_id"`
+	ID         int64  `db:"id" json:"id"`
+	ProjectID  int64  `db:"project_id" json:"project_id"`
 	StoryTitle string `db:"story_title" json:"story_title"`
 	StoryScene string `db:"story_scene" json:"story_scene"`
-	Story     string `db:"story" json:"story"`
-	CreateTs  int64  `db:"create_ts" json:"create_ts"`
-	UpdateTs  int64  `db:"update_ts" json:"update_ts"`
+	Story      string `db:"story" json:"story"`
+	CreateTs   int64  `db:"create_ts" json:"create_ts"`
+	UpdateTs   int64  `db:"update_ts" json:"update_ts"`
 	StoryShots string `db:"story_shots" json:"story_shots"`
-	Extea     string `db:"extea" json:"extea"`
+	Extra      string `db:"extra" json:"extra"`
 }
 
 func (c *Chapter) TableName() string {
-	return "story"
+	return "chapter"
 }
 
 func GetChapterInfo(cid int64) (*Chapter, error) {
 	chapter := &Chapter{}
 	err := MainDB.Get(chapter, "SELECT * FROM "+chapter.TableName()+" WHERE id = ?", cid)
 	if err != nil {
-		if err!=sql.ErrNoRows {
+		if err != sql.ErrNoRows {
 			return nil, err
 		}
 		return nil, err
@@ -49,18 +49,23 @@ func GetChapterInfo(cid int64) (*Chapter, error) {
 }
 
 func (ch *Chapter) Add() error {
-	sql := "INSERT INTO `story` ("
+	sql := "INSERT INTO `chapter` ("
 	fields, values := util.GetStructFieldsAndValues(*ch)
-	query := sql + strings.Join(fields, ",") + ") values (" + strings.Join(values, ",") + ") on duplicate key update story_title = :story_title, story_scene = :story_scene, story = :story, update_ts = :update_ts, story_shots = :story_shots, extea = :extea"
-	_, err := MainDB.Unsafe().NamedExec(query, ch)
+	query := sql + strings.Join(fields, ",") + ") values (" + strings.Join(values, ",") + ")"
+	res, err := MainDB.Unsafe().NamedExec(query, ch)
 	if err != nil {
 		return err
 	}
+	id, err := res.LastInsertId()
+	if err != nil {
+		return err
+	}
+	ch.ID = id
 	return nil
 }
 
 func (ch *Chapter) Update() error {
-	sql := "UPDATE `story` SET "
+	sql := "UPDATE `chapter` SET "
 	fields, values := util.GetStructFieldsAndValues(*ch)
 	setParts := make([]string, len(fields))
 	for i, field := range fields {
@@ -75,7 +80,7 @@ func (ch *Chapter) Update() error {
 }
 
 func (ch *Chapter) Delete() error {
-	query := "DELETE FROM `story` WHERE id = ?"
+	query := "DELETE FROM `chapter` WHERE id = ?"
 	_, err := MainDB.Unsafe().Exec(query, ch.ID)
 	if err != nil {
 		return err

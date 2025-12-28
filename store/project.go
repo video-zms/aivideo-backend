@@ -17,11 +17,12 @@ import (
 
 type Project struct {
 	ID       int64  `db:"id" json:"id"`
+	Name     string `db:"name" json:"name"`
 	Desc     string `db:"desc" json:"desc"`
 	Creator  string `db:"creator" json:"creator"`
 	CreateTs int64  `db:"create_ts" json:"create_ts"`
 	UpdateTs int64  `db:"update_ts" json:"update_ts"`
-	Extea    string `db:"extea" json:"extea"`
+	Extra    string `db:"extra" json:"extra"`
 }
 
 func (p *Project) TableName() string {
@@ -40,11 +41,16 @@ func GetProjectInfo(pid int64) (*Project, error) {
 func (pr *Project) Add() error {
 	sql := "INSERT INTO `project` ("
 	fields, values := util.GetStructFieldsAndValues(*pr)
-	query := sql + strings.Join(fields, ",") + ") values (" + strings.Join(values, ",") + ") on duplicate key update desc = :desc, update_ts = :update_ts, extea = :extea"
-	_, err := MainDB.Unsafe().NamedExec(query, pr)
+	query := sql + strings.Join(fields, ",") + ") values (" + strings.Join(values, ",") + ")"
+	res, err := MainDB.Unsafe().NamedExec(query, pr)
 	if err != nil {
 		return err
 	}
+	id, err := res.LastInsertId()
+	if err != nil {
+		return err
+	}
+	pr.ID = id
 	return nil
 }
 
@@ -84,7 +90,6 @@ func ListProjectsByCreator(creator string) ([]*Project, error) {
 	return projects, nil
 }
 
-
 func ListAllProjects() ([]*Project, error) {
 	projects := []*Project{}
 	err := MainDB.Select(&projects, "SELECT * FROM "+(&Project{}).TableName())
@@ -101,6 +106,6 @@ func GetProjectById(pid int64) (*Project, error) {
 	return GetProjectInfo(pid)
 }
 
-func GetProjectsByCreator(creator string) ([]*Project, error){
+func GetProjectsByCreator(creator string) ([]*Project, error) {
 	return ListProjectsByCreator(creator)
 }

@@ -68,7 +68,7 @@ func init() {
 	if isLocalDev {
 		config.InitEnvConfCustom("./config/env.local.toml")
 	} else if isDev {
-		config.InitEnvConfCustom("../../config/env.dev.toml")
+		config.InitEnvConfCustom("./config/env.dev.toml")
 	} else {
 		config.InitEnvConfCustom("./config/env.online.vpc.toml")
 	}

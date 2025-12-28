@@ -38,15 +38,39 @@ func GetUserInfo(uid int64) (*User, error) {
 }
 
 func (cr *User) Add() error {
-	sql := "INSERT INTO `user` ("
+	// 从结构体生成字段与占位符
 	fields, values := util.GetStructFieldsAndValues(*cr)
-	query := sql + strings.Join(fields, ",") + ") values (" + strings.Join(values, ",") + ") on duplicate key update is_collect = :is_collect, update_time = :update_time"
-	_, err := MainDB.Unsafe().NamedExec(query, cr)
+
+	// 过滤掉 id 字段，让 MySQL 使用自增值
+	newFields := make([]string, 0, len(fields))
+	newValues := make([]string, 0, len(values))
+	for i, f := range fields {
+		// 去掉可能的反引号并忽略大小写比较
+		name := strings.Trim(f, "`")
+		if strings.EqualFold(strings.TrimSpace(name), "id") {
+			continue
+		}
+		newFields = append(newFields, f)
+		newValues = append(newValues, values[i])
+	}
+
+	query := "INSERT INTO `user` (" + strings.Join(newFields, ",") + ") values (" + strings.Join(newValues, ",") + ")"
+	res, err := MainDB.Unsafe().NamedExec(query, cr)
 	if err != nil {
 		logrus.WithFields(logrus.Fields{"collect_record": cr, "uid": cr.ID, "err": err}).Error("save collect record error")
+		return err
 	}
-	return err
+
+	// 读取并设置自动生成的 id
+	if res != nil {
+		if lastID, err2 := res.LastInsertId(); err2 == nil {
+			cr.ID = lastID
+		}
+	}
+
+	return nil
 }
+
 func (cr *User) Update() error {
 	sql := "UPDATE `user` SET "
 	fields, values := util.GetStructFieldsAndValues(*cr)

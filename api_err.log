@@ -1,3 +1,245 @@
-main start, is_dev: false
-main start, 监听端口: 192.168.10.8:6869 ,PID: 62315
-main start, 服务启动成功，监听端口: 6869 ,PID: 62315
+main start, is_dev: true
+main start, 监听端口: 192.168.10.13:6869 ,PID: 74197
+main start, 服务启动成功，监听端口: 6869 ,PID: 74197
+2025/12/28 21:56:13 http: panic serving 127.0.0.1:63283: runtime error: invalid memory address or nil pointer dereference
+goroutine 12 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1943 +0x118
+panic({0x1015ccfc0?, 0x10196a500?})
+	/usr/local/go/src/runtime/panic.go:783 +0xec
+axe-backend/store.(*Chapter).Delete(0x0)
+	/Users/and1/GolandProjects/axe-backend/store/chapter.go:84 +0x74
+axe-backend/service/chapter.DeleteChapter(0x14000480500)
+	/Users/and1/GolandProjects/axe-backend/service/chapter/chapter.go:73 +0x258
+github.com/gin-gonic/gin.(*Context).Next(0x14000480500)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185 +0xa0
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x1400010e000, 0x14000480500)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633 +0x36c
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x1400010e000, {0x101667220, 0x14000478000}, 0x14000452000)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589 +0xc0
+net/http.serverHandler.ServeHTTP({0x14000480400}, {0x101667220, 0x14000478000}, 0x14000452000)
+	/usr/local/go/src/net/http/server.go:3340 +0x2ac
+net/http.(*conn).serve(0x14000516090, {0x101667bc8, 0x1400042c8c0})
+	/usr/local/go/src/net/http/server.go:2109 +0x17cc
+created by net/http.(*Server).Serve in goroutine 11
+	/usr/local/go/src/net/http/server.go:3493 +0x7c0
+2025/12/28 21:56:48 http: panic serving 192.168.10.13:63287: runtime error: invalid memory address or nil pointer dereference
+goroutine 14 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1943 +0x118
+panic({0x1015ccfc0?, 0x10196a500?})
+	/usr/local/go/src/runtime/panic.go:783 +0xec
+axe-backend/store.(*Chapter).Delete(0x0)
+	/Users/and1/GolandProjects/axe-backend/store/chapter.go:84 +0x74
+axe-backend/service/chapter.DeleteChapter(0x14000480600)
+	/Users/and1/GolandProjects/axe-backend/service/chapter/chapter.go:73 +0x258
+github.com/gin-gonic/gin.(*Context).Next(0x14000480600)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185 +0xa0
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x1400010e000, 0x14000480600)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633 +0x36c
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x1400010e000, {0x101667220, 0x14000478a50}, 0x14000452280)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589 +0xc0
+net/http.serverHandler.ServeHTTP({0x14000480400}, {0x101667220, 0x14000478a50}, 0x14000452280)
+	/usr/local/go/src/net/http/server.go:3340 +0x2ac
+net/http.(*conn).serve(0x140005163f0, {0x101667bc8, 0x1400042ca50})
+	/usr/local/go/src/net/http/server.go:2109 +0x17cc
+created by net/http.(*Server).Serve in goroutine 11
+	/usr/local/go/src/net/http/server.go:3493 +0x7c0
+2025/12/28 21:56:48 http: panic serving 192.168.10.13:63288: runtime error: invalid memory address or nil pointer dereference
+goroutine 16 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1943 +0x118
+panic({0x1015ccfc0?, 0x10196a500?})
+	/usr/local/go/src/runtime/panic.go:783 +0xec
+axe-backend/store.(*Chapter).Delete(0x0)
+	/Users/and1/GolandProjects/axe-backend/store/chapter.go:84 +0x74
+axe-backend/service/chapter.DeleteChapter(0x14000480700)
+	/Users/and1/GolandProjects/axe-backend/service/chapter/chapter.go:73 +0x258
+github.com/gin-gonic/gin.(*Context).Next(0x14000480700)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185 +0xa0
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x1400010e000, 0x14000480700)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633 +0x36c
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x1400010e000, {0x101667220, 0x14000478b40}, 0x14000452640)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589 +0xc0
+net/http.serverHandler.ServeHTTP({0x14000480400}, {0x101667220, 0x14000478b40}, 0x14000452640)
+	/usr/local/go/src/net/http/server.go:3340 +0x2ac
+net/http.(*conn).serve(0x140005166c0, {0x101667bc8, 0x1400042cb90})
+	/usr/local/go/src/net/http/server.go:2109 +0x17cc
+created by net/http.(*Server).Serve in goroutine 11
+	/usr/local/go/src/net/http/server.go:3493 +0x7c0
+2025/12/28 21:57:27 http: panic serving 192.168.10.13:63311: runtime error: invalid memory address or nil pointer dereference
+goroutine 34 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1943 +0x118
+panic({0x1015ccfc0?, 0x10196a500?})
+	/usr/local/go/src/runtime/panic.go:783 +0xec
+axe-backend/store.(*Chapter).Delete(0x0)
+	/Users/and1/GolandProjects/axe-backend/store/chapter.go:84 +0x74
+axe-backend/service/chapter.DeleteChapter(0x1400021e000)
+	/Users/and1/GolandProjects/axe-backend/service/chapter/chapter.go:73 +0x258
+github.com/gin-gonic/gin.(*Context).Next(0x1400021e000)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185 +0xa0
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x1400010e000, 0x1400021e000)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633 +0x36c
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x1400010e000, {0x101667220, 0x140000ba2d0}, 0x14000001180)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589 +0xc0
+net/http.serverHandler.ServeHTTP({0x14000480400}, {0x101667220, 0x140000ba2d0}, 0x14000001180)
+	/usr/local/go/src/net/http/server.go:3340 +0x2ac
+net/http.(*conn).serve(0x1400014c750, {0x101667bc8, 0x1400014e500})
+	/usr/local/go/src/net/http/server.go:2109 +0x17cc
+created by net/http.(*Server).Serve in goroutine 11
+	/usr/local/go/src/net/http/server.go:3493 +0x7c0
+2025/12/28 21:57:28 http: panic serving 192.168.10.13:63318: runtime error: invalid memory address or nil pointer dereference
+goroutine 39 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1943 +0x118
+panic({0x1015ccfc0?, 0x10196a500?})
+	/usr/local/go/src/runtime/panic.go:783 +0xec
+axe-backend/store.(*Chapter).Delete(0x0)
+	/Users/and1/GolandProjects/axe-backend/store/chapter.go:84 +0x74
+axe-backend/service/chapter.DeleteChapter(0x1400021e100)
+	/Users/and1/GolandProjects/axe-backend/service/chapter/chapter.go:73 +0x258
+github.com/gin-gonic/gin.(*Context).Next(0x1400021e100)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185 +0xa0
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x1400010e000, 0x1400021e100)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633 +0x36c
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x1400010e000, {0x101667220, 0x140000ba3c0}, 0x14000001400)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589 +0xc0
+net/http.serverHandler.ServeHTTP({0x14000480400}, {0x101667220, 0x140000ba3c0}, 0x14000001400)
+	/usr/local/go/src/net/http/server.go:3340 +0x2ac
+net/http.(*conn).serve(0x1400014d290, {0x101667bc8, 0x1400014ea00})
+	/usr/local/go/src/net/http/server.go:2109 +0x17cc
+created by net/http.(*Server).Serve in goroutine 11
+	/usr/local/go/src/net/http/server.go:3493 +0x7c0
+2025/12/28 21:57:29 http: panic serving 192.168.10.13:63320: runtime error: invalid memory address or nil pointer dereference
+goroutine 41 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1943 +0x118
+panic({0x1015ccfc0?, 0x10196a500?})
+	/usr/local/go/src/runtime/panic.go:783 +0xec
+axe-backend/store.(*Chapter).Delete(0x0)
+	/Users/and1/GolandProjects/axe-backend/store/chapter.go:84 +0x74
+axe-backend/service/chapter.DeleteChapter(0x1400021e200)
+	/Users/and1/GolandProjects/axe-backend/service/chapter/chapter.go:73 +0x258
+github.com/gin-gonic/gin.(*Context).Next(0x1400021e200)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185 +0xa0
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x1400010e000, 0x1400021e200)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633 +0x36c
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x1400010e000, {0x101667220, 0x140000ba4b0}, 0x14000001680)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589 +0xc0
+net/http.serverHandler.ServeHTTP({0x14000480400}, {0x101667220, 0x140000ba4b0}, 0x14000001680)
+	/usr/local/go/src/net/http/server.go:3340 +0x2ac
+net/http.(*conn).serve(0x1400014d560, {0x101667bc8, 0x1400014eb40})
+	/usr/local/go/src/net/http/server.go:2109 +0x17cc
+created by net/http.(*Server).Serve in goroutine 11
+	/usr/local/go/src/net/http/server.go:3493 +0x7c0
+2025/12/28 21:57:45 http: panic serving 192.168.10.13:63321: runtime error: invalid memory address or nil pointer dereference
+goroutine 43 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1943 +0x118
+panic({0x1015ccfc0?, 0x10196a500?})
+	/usr/local/go/src/runtime/panic.go:783 +0xec
+axe-backend/store.(*Chapter).Delete(0x0)
+	/Users/and1/GolandProjects/axe-backend/store/chapter.go:84 +0x74
+axe-backend/service/chapter.DeleteChapter(0x1400021e300)
+	/Users/and1/GolandProjects/axe-backend/service/chapter/chapter.go:73 +0x258
+github.com/gin-gonic/gin.(*Context).Next(0x1400021e300)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185 +0xa0
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x1400010e000, 0x1400021e300)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633 +0x36c
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x1400010e000, {0x101667220, 0x140000ba5a0}, 0x14000001900)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589 +0xc0
+net/http.serverHandler.ServeHTTP({0x14000480400}, {0x101667220, 0x140000ba5a0}, 0x14000001900)
+	/usr/local/go/src/net/http/server.go:3340 +0x2ac
+net/http.(*conn).serve(0x1400014d830, {0x101667bc8, 0x1400014ec80})
+	/usr/local/go/src/net/http/server.go:2109 +0x17cc
+created by net/http.(*Server).Serve in goroutine 11
+	/usr/local/go/src/net/http/server.go:3493 +0x7c0
+2025/12/28 21:58:16 http: panic serving 192.168.10.13:63325: runtime error: invalid memory address or nil pointer dereference
+goroutine 45 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1943 +0x118
+panic({0x1015ccfc0?, 0x10196a500?})
+	/usr/local/go/src/runtime/panic.go:783 +0xec
+axe-backend/store.(*Chapter).Delete(0x0)
+	/Users/and1/GolandProjects/axe-backend/store/chapter.go:84 +0x74
+axe-backend/service/chapter.DeleteChapter(0x1400021e400)
+	/Users/and1/GolandProjects/axe-backend/service/chapter/chapter.go:73 +0x258
+github.com/gin-gonic/gin.(*Context).Next(0x1400021e400)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185 +0xa0
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x1400010e000, 0x1400021e400)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633 +0x36c
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x1400010e000, {0x101667220, 0x140000ba690}, 0x14000001b80)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589 +0xc0
+net/http.serverHandler.ServeHTTP({0x14000480400}, {0x101667220, 0x140000ba690}, 0x14000001b80)
+	/usr/local/go/src/net/http/server.go:3340 +0x2ac
+net/http.(*conn).serve(0x1400014d950, {0x101667bc8, 0x1400014ed20})
+	/usr/local/go/src/net/http/server.go:2109 +0x17cc
+created by net/http.(*Server).Serve in goroutine 11
+	/usr/local/go/src/net/http/server.go:3493 +0x7c0
+2025/12/28 21:59:04 http: panic serving 192.168.10.13:63390: runtime error: invalid memory address or nil pointer dereference
+goroutine 66 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1943 +0x118
+panic({0x1015ccfc0?, 0x10196a500?})
+	/usr/local/go/src/runtime/panic.go:783 +0xec
+axe-backend/store.(*Chapter).Delete(0x0)
+	/Users/and1/GolandProjects/axe-backend/store/chapter.go:84 +0x74
+axe-backend/service/chapter.DeleteChapter(0x14000480200)
+	/Users/and1/GolandProjects/axe-backend/service/chapter/chapter.go:73 +0x258
+github.com/gin-gonic/gin.(*Context).Next(0x14000480200)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185 +0xa0
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x1400010e000, 0x14000480200)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633 +0x36c
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x1400010e000, {0x101667220, 0x14000478000}, 0x14000452000)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589 +0xc0
+net/http.serverHandler.ServeHTTP({0x14000480400}, {0x101667220, 0x14000478000}, 0x14000452000)
+	/usr/local/go/src/net/http/server.go:3340 +0x2ac
+net/http.(*conn).serve(0x140005162d0, {0x101667bc8, 0x1400042c050})
+	/usr/local/go/src/net/http/server.go:2109 +0x17cc
+created by net/http.(*Server).Serve in goroutine 11
+	/usr/local/go/src/net/http/server.go:3493 +0x7c0
+: panic serving 127.0.0.1:63207: runtime error: invalid memory address or nil pointer dereference
+goroutine 86 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1943 +0x118
+panic({0x1015e5000?, 0x101982500?})
+	/usr/local/go/src/runtime/panic.go:783 +0xec
+axe-backend/store.(*Chapter).Delete(0x0)
+	/Users/and1/GolandProjects/axe-backend/store/chapter.go:84 +0x74
+axe-backend/service/chapter.DeleteChapter(0x1400009a900)
+	/Users/and1/GolandProjects/axe-backend/service/chapter/chapter.go:72 +0x258
+github.com/gin-gonic/gin.(*Context).Next(0x1400009a900)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185 +0xa0
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x1400018e000, 0x1400009a900)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633 +0x36c
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x1400018e000, {0x10167f200, 0x14000096b40}, 0x14000000280)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589 +0xc0
+net/http.serverHandler.ServeHTTP({0x1400029e200}, {0x10167f200, 0x14000096b40}, 0x14000000280)
+	/usr/local/go/src/net/http/server.go:3340 +0x2ac
+net/http.(*conn).serve(0x1400052dcb0, {0x10167fba8, 0x14000430d70})
+	/usr/local/go/src/net/http/server.go:2109 +0x17cc
+created by net/http.(*Server).Serve in goroutine 10
+	/usr/local/go/src/net/http/server.go:3493 +0x7c0
+2025/12/28 21:55:58 http: panic serving 127.0.0.1:63218: runtime error: invalid memory address or nil pointer dereference
+goroutine 88 [running]:
+net/http.(*conn).serve.func1()
+	/usr/local/go/src/net/http/server.go:1943 +0x118
+panic({0x1015e5000?, 0x101982500?})
+	/usr/local/go/src/runtime/panic.go:783 +0xec
+axe-backend/store.(*Chapter).Delete(0x0)
+	/Users/and1/GolandProjects/axe-backend/store/chapter.go:84 +0x74
+axe-backend/service/chapter.DeleteChapter(0x1400009aa00)
+	/Users/and1/GolandProjects/axe-backend/service/chapter/chapter.go:72 +0x258
+github.com/gin-gonic/gin.(*Context).Next(0x1400009aa00)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185 +0xa0
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x1400018e000, 0x1400009aa00)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633 +0x36c
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x1400018e000, {0x10167f200, 0x14000096c30}, 0x14000000a00)
+	/Users/and1/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589 +0xc0
+net/http.serverHandler.ServeHTTP({0x1400029e200}, {0x10167f200, 0x14000096c30}, 0x14000000a00)
+	/usr/local/go/src/net/http/server.go:3340 +0x2ac
+net/http.(*conn).serve(0x140001cc5a0, {0x10167fba8, 0x14000430eb0})
+	/usr/local/go/src/net/http/server.go:2109 +0x17cc
+created by net/http.(*Server).Serve in goroutine 10
+	/usr/local/go/src/net/http/server.go:3493 +0x7c0

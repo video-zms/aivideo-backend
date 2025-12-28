@@ -11,7 +11,7 @@ import (
 func Login(c *gin.Context) {
 	var req struct {
 		Username string `json:"username"`
-		Email	string `json:"email"`
+		Email    string `json:"email"`
 		Password string `json:"password" binding:"required"`
 	}
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -40,9 +40,9 @@ func Login(c *gin.Context) {
 	// 登录成功，返回用户信息（不包含密码）
 	logrus.WithFields(logrus.Fields{"user": user, "uid": user.ID}).Info("user logged in successfully")
 	c.JSON(200, gin.H{
-		"id":       user.ID,
-		"username": user.Username,
-		"email":    user.Email,
+		"id":        user.ID,
+		"username":  user.Username,
+		"email":     user.Email,
 		"create_ts": user.CreateTs,
 		"update_ts": user.UpdateTs,
 		"privilege": user.Privilege,
@@ -52,9 +52,9 @@ func Login(c *gin.Context) {
 
 func Register(c *gin.Context) {
 	var req struct {
-		Username string `json:"username" binding:"required"`
-		Email    string `json:"email" binding:"required"`
-		Password string `json:"password" binding:"required"`
+		Username  string `json:"username" binding:"required"`
+		Email     string `json:"email" binding:"required"`
+		Password  string `json:"password" binding:"required"`
 		Privilege int    `json:"privilege"`
 	}
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -82,14 +82,15 @@ func Register(c *gin.Context) {
 	newUser.Privilege = req.Privilege
 	err = newUser.Add()
 	if err != nil {
+		logrus.WithField("err", err.Error()).Error("failed to create user")
 		c.JSON(500, gin.H{"error": "failed to create user"})
 		return
 	}
 	logrus.WithFields(logrus.Fields{"user": newUser, "uid": newUser.ID}).Info("user registered successfully")
 	c.JSON(201, gin.H{
-		"id":       newUser.ID,
-		"username": newUser.Username,
-		"email":    newUser.Email,
+		"id":        newUser.ID,
+		"username":  newUser.Username,
+		"email":     newUser.Email,
 		"create_ts": newUser.CreateTs,
 		"update_ts": newUser.UpdateTs,
 		"privilege": newUser.Privilege,

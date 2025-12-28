@@ -1,7 +1,7 @@
 package chapter
 
 import (
-	"axe-backend/store" 
+	"axe-backend/store"
 	"axe-backend/util"
 
 	"github.com/gin-gonic/gin"
@@ -9,6 +9,7 @@ import (
 
 func QueryChapters(c *gin.Context) {
 	var req struct {
+		ID        int64 `json:"id"`
 		ProjectID int64 `json:"project_id" binding:"required"`
 	}
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -69,6 +70,10 @@ func DeleteChapter(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
+	if chapter == nil {
+		c.JSON(404, gin.H{"error": "chapter not found"})
+		return
+	}
 	err = chapter.Delete()
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
@@ -79,27 +84,26 @@ func DeleteChapter(c *gin.Context) {
 
 func CreateChapter(c *gin.Context) {
 	var req struct {
-		Title     string `json:"title" binding:"required"`
-		Story   string `json:"story" binding:"required"`
-		ProjectID int64  `json:"project_id" binding:"required"`
-		StoryTitle string `json:"story_title"`
+		StoryTitle string `json:"story_title" binding:"required"`
+		Story      string `json:"story" binding:"required"`
+		ProjectID  int64  `json:"project_id" binding:"required"`
 		StoryScene string `json:"story_scene"`
 		StoryShots string `json:"story_shots"`
-		Extea     string `json:"extea"`
+		Extra      string `json:"extra"`
 	}
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
 	chapter := &store.Chapter{
-		StoryTitle: req.Title,
-		Story:   req.Story,
-		ProjectID: req.ProjectID,
+		StoryTitle: req.StoryTitle,
+		Story:      req.Story,
+		ProjectID:  req.ProjectID,
 		StoryScene: req.StoryScene,
 		StoryShots: req.StoryShots,
-		Extea:     req.Extea,
-		CreateTs:  util.GetCurrentTimestamp(),
-		UpdateTs:  util.GetCurrentTimestamp(),
+		Extra:      req.Extra,
+		CreateTs:   util.GetCurrentTimestamp(),
+		UpdateTs:   util.GetCurrentTimestamp(),
 	}
 	err := chapter.Add()
 	if err != nil {

@@ -1,6 +1,7 @@
 package config
 
 import (
+	"github.com/sirupsen/logrus"
 	"log"
 
 	"github.com/BurntSushi/toml"
@@ -29,7 +30,7 @@ func InitEnvConf() {
 
 func InitEnvConfCustom(file string) {
 	if _, err := toml.DecodeFile(file, &envConf); err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 }
 

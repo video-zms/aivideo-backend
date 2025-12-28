@@ -10,7 +10,7 @@ import (
 
 func QueryProjects(c *gin.Context) {
 	var req struct {
-		Id int64 `json:"id"`
+		Id      int64  `json:"id"`
 		Creator string `json:"creator"`
 	}
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -27,7 +27,7 @@ func QueryProjects(c *gin.Context) {
 		return
 	}
 	if req.Id != 0 {
-		project,  err := projectStore.GetProjectById(req.Id)
+		project, err := projectStore.GetProjectById(req.Id)
 		if err != nil {
 			c.JSON(500, gin.H{"error": err.Error()})
 			return
@@ -47,10 +47,11 @@ func QueryProjects(c *gin.Context) {
 }
 
 func UpdateProject(c *gin.Context) {
-	var req struct{
-		Id int64 `json:"id" binding:"required"`
-		Desc string `json:"desc"`
-		Extea string `json:"extea"`
+	var req struct {
+		Id    int64  `json:"id" binding:"required"`
+		Desc  string `json:"desc"`
+		Extra string `json:"extra"`
+		Name  string `json:"name"`
 	}
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -68,8 +69,11 @@ func UpdateProject(c *gin.Context) {
 	if req.Desc != "" {
 		projectInfo.Desc = req.Desc
 	}
-	if req.Extea != "" {
-		projectInfo.Extea = req.Extea
+	if req.Extra != "" {
+		projectInfo.Extra = req.Extra
+	}
+	if req.Name != "" {
+		projectInfo.Name = req.Name
 	}
 	projectInfo.UpdateTs = util.GetCurrentTimestamp()
 	err = projectInfo.Update()
@@ -81,9 +85,8 @@ func UpdateProject(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "project updated successfully"})
 }
 
-
 func DeleteProject(c *gin.Context) {
-	var req struct{
+	var req struct {
 		Id int64 `json:"id" binding:"required"`
 	}
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -106,4 +109,33 @@ func DeleteProject(c *gin.Context) {
 	}
 	logrus.WithFields(logrus.Fields{"project": projectInfo, "pid": projectInfo.ID}).Info("project deleted successfully")
 	c.JSON(200, gin.H{"message": "project deleted successfully"})
+}
+
+func CreateProject(c *gin.Context) {
+	var req struct {
+		Name    string `json:"name" binding:"required"`
+		Creator string `json:"creator" binding:"required"`
+		Desc    string `json:"desc"`
+		Extra   string `json:"extra"`
+	}
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	newProject := &projectStore.Project{
+		Name:    req.Name,
+		Creator: req.Creator,
+		Desc:    req.Desc,
+		Extra:   req.Extra,
+	}
+	currentTs := util.GetCurrentTimestamp()
+	newProject.CreateTs = currentTs
+	newProject.UpdateTs = currentTs
+	err := newProject.Add()
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+	logrus.WithFields(logrus.Fields{"project": newProject, "pid": newProject.ID}).Info("project created successfully")
+	c.JSON(200, gin.H{"message": "project created successfully", "project_id": newProject.ID})
 }
