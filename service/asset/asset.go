@@ -7,8 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
-
 func UploadAsset(c *gin.Context) {
 	var req store.Asset
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -25,8 +23,8 @@ func UploadAsset(c *gin.Context) {
 
 func QueryAssets(c *gin.Context) {
 	var req struct {
-		ID int64 `json:"id"`
-		Type string `json:"type"`
+		ID   int64 `json:"id"`
+		Type int64 `json:"type"`
 	}
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -38,10 +36,10 @@ func QueryAssets(c *gin.Context) {
 			c.JSON(500, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(200, gin.H{"asset": asset})
+		c.JSON(200, gin.H{"assets": []interface{}{asset}})
 		return
 	}
-	if req.Type != "" {
+	if req.Type != 0 {
 		assets, err := store.GetAssetsByType(req.Type)
 		if err != nil {
 			c.JSON(500, gin.H{"error": err.Error()})
@@ -74,7 +72,7 @@ func DeleteAsset(c *gin.Context) {
 	c.JSON(200, gin.H{"message": "asset deleted successfully"})
 }
 
-func UpdateAsset(c *gin.Context){
+func UpdateAsset(c *gin.Context) {
 	var req store.Asset
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -91,8 +89,8 @@ func UpdateAsset(c *gin.Context){
 	if req.Detail != "" {
 		assetInfo.Detail = req.Detail
 	}
-	if req.Extea != "" {
-		assetInfo.Extea = req.Extea
+	if req.Extra != "" {
+		assetInfo.Extra = req.Extra
 	}
 	assetInfo.UpdateTs = util.GetCurrentTimestamp()
 	err = assetInfo.Update()

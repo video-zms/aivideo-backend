@@ -41,7 +41,7 @@ type Shot struct {
 	CharaterIDs    string `db:"charater_ids" json:"charater_ids"`
 	CreateTs       int64  `db:"create_ts" json:"create_ts"`
 	UpdateTs       int64  `db:"update_ts" json:"update_ts"`
-	Extea          string `db:"extea" json:"extea"`
+	Extra          string `db:"extra" json:"extra"`
 }
 
 func (s *Shot) TableName() string {
@@ -60,11 +60,16 @@ func GetShotInfo(sid int64) (*Shot, error) {
 func (sh *Shot) Add() error {
 	sql := "INSERT INTO `shot` ("
 	fields, values := util.GetStructFieldsAndValues(*sh)
-	query := sql + strings.Join(fields, ",") + ") values (" + strings.Join(values, ",") + ") on duplicate key update shot_number = :shot_number, duration = :duration, scene_type = :scene_type, camera_movement = :camera_movement, desc = :desc, dialogue = :dialogue, notes = :notes, timestamp = :timestamp, scene_id = :scene_id, audio_id = :audio_id, charater_ids = :charater_ids, update_ts = :update_ts, extea = :extea"
-	_, err := MainDB.Unsafe().NamedExec(query, sh)
+	query := sql + strings.Join(fields, ",") + ") values (" + strings.Join(values, ",") + ")"
+	rsp, err := MainDB.Unsafe().NamedExec(query, sh)
 	if err != nil {
 		return err
 	}
+	id, err := rsp.LastInsertId()
+	if err != nil {
+		return err
+	}
+	sh.ID = id
 	return nil
 }
 

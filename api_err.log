@@ -1,6 +1,7 @@
 main start, is_dev: true
-main start, 监听端口: 192.168.10.13:6869 ,PID: 74197
-main start, 服务启动成功，监听端口: 6869 ,PID: 74197
+main start, 监听端口: 192.168.10.13:6869 ,PID: 3878
+main start, 服务启动成功，监听端口: 6869 ,PID: 3878
+6
 2025/12/28 21:56:13 http: panic serving 127.0.0.1:63283: runtime error: invalid memory address or nil pointer dereference
 goroutine 12 [running]:
 net/http.(*conn).serve.func1()

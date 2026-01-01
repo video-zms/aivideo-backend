@@ -26,10 +26,13 @@ func QueryChapters(c *gin.Context) {
 
 func UpdateChapter(c *gin.Context) {
 	var req struct {
-		ID        int64  `json:"id" binding:"required"`
-		Title     string `json:"title"`
-		Content   string `json:"content"`
-		ProjectID int64  `json:"project_id"`
+		ID         int64  `json:"id" binding:"required"`
+		StoryTitle string `json:"story_title" `
+		Story      string `json:"story"`
+		ProjectID  int64  `json:"project_id" `
+		StoryScene string `json:"story_scene"`
+		StoryShots string `json:"story_shots"`
+		Extra      string `json:"extra"`
 	}
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -40,14 +43,23 @@ func UpdateChapter(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
-	if req.Title != "" {
-		chapter.StoryTitle = req.Title
+	if req.StoryTitle != "" {
+		chapter.StoryTitle = req.StoryTitle
 	}
-	if req.Content != "" {
-		chapter.Story = req.Content
+	if req.Story != "" {
+		chapter.Story = req.Story
 	}
 	if req.ProjectID != 0 {
 		chapter.ProjectID = req.ProjectID
+	}
+	if req.StoryScene != "" {
+		chapter.StoryScene = req.StoryScene
+	}
+	if req.StoryShots != "" {
+		chapter.StoryShots = req.StoryShots
+	}
+	if req.Extra != "" {
+		chapter.Extra = req.Extra
 	}
 	err = chapter.Update()
 	if err != nil {
